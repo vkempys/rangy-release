@@ -336,6 +336,7 @@
 
                 var containerElementId = options.containerElementId;
                 var exclusive = options.exclusive;
+                var ignoreIntersection = options.ignoreIntersection;
 
                 var containerElement, containerElementRange, containerElementCharRange;
                 if (containerElementId) {
@@ -368,7 +369,7 @@
                     for (j = 0; j < highlights.length; ++j) {
                         removeHighlight = false;
 
-                        if (containerElementId == highlights[j].containerElementId) {
+                        if (containerElementId == highlights[j].containerElementId && !ignoreIntersection) {
                             highlightCharRange = highlights[j].characterRange;
                             isSameClassApplier = (classApplier == highlights[j].classApplier);
                             splitHighlight = !isSameClassApplier && exclusive;
@@ -450,7 +451,8 @@
 
                 return this.highlightCharacterRanges(className, selCharRanges, {
                     containerElementId: containerElementId,
-                    exclusive: options.exclusive
+                    exclusive: options.exclusive,
+                    ignoreIntersection: options.ignoreIntersection
                 });
             },
 
@@ -466,6 +468,7 @@
 
                 var containerElementId = options.containerElementId;
                 var exclusive = options.exclusive;
+                var ignoreIntersection = options.ignoreIntersection;
                 var selection = options.selection;
                 var doc = selection.win.document;
                 var containerElement = getContainerElement(doc, containerElementId);
@@ -485,7 +488,8 @@
 
                 var newHighlights = this.highlightCharacterRanges(className, selCharRanges, {
                     containerElementId: containerElementId,
-                    exclusive: exclusive
+                    exclusive: exclusive,
+                    ignoreIntersection: ignoreIntersection
                 });
 
                 // Restore selection
